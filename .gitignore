@@ -1,0 +1,4 @@
+ngc_script/
+.idea/
+.DS_Store
+*.pyc
