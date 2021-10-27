@@ -252,8 +252,6 @@ def train(model, VAE, t, loader, opt, model_path):
 
         if idx == opt.total_iter:
             break
-    
-    
 
 
 def main(eval_args):

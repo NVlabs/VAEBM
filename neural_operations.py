@@ -195,7 +195,6 @@ class BNSwishConv(nn.Module):
         super(BNSwishConv, self).__init__()
         self.upsample = stride == -1
         stride = abs(stride)
-        # self.bn = get_batchnorm(C_in, eps=BN_EPS, momentum=0.05)
         self.bn_act = SyncBatchNormSwish(C_in, eps=BN_EPS, momentum=0.05)
         self.conv_0 = Conv2D(C_in, C_out, kernel_size, stride=stride, padding=padding, bias=True, dilation=dilation)
 
@@ -204,8 +203,6 @@ class BNSwishConv(nn.Module):
         Args:
             x (torch.Tensor): of size (B, C_in, H, W)
         """
-        # x = self.bn(x)
-        # out = act(x)
         out = self.bn_act(x)
         if self.upsample:
             out = F.interpolate(out, scale_factor=2, mode='nearest')
@@ -245,7 +242,6 @@ class EncCombinerCell(nn.Module):
     def __init__(self, Cin1, Cin2, Cout, cell_type):
         super(EncCombinerCell, self).__init__()
         self.cell_type = cell_type
-        # Cin = Cin1 + Cin2
         self.conv = Conv2D(Cin2, Cout, kernel_size=1, stride=1, padding=0, bias=True)
 
     def forward(self, x1, x2):
@@ -273,9 +269,6 @@ class ConvBNSwish(nn.Module):
         super(ConvBNSwish, self).__init__()
 
         self.conv = nn.Sequential(
-            # Conv2D(Cin, Cout, k, stride, padding, groups=groups, bias=False, dilation=dilation, weight_norm=False),
-            # get_batchnorm(Cout, eps=BN_EPS, momentum=0.05),
-            # Swish()
             Conv2D(Cin, Cout, k, stride, padding, groups=groups, bias=False, dilation=dilation, weight_norm=False),
             SyncBatchNormSwish(Cout, eps=BN_EPS, momentum=0.05)  # drop in replacement for BN + Swish
         )

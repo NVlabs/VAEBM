@@ -70,7 +70,6 @@ class CellAR(nn.Module):
         else:
             self.mu = ARELUConv(self.conv.hidden_dim, num_z, kernel_size=1, padding=0, masked=True, zero_diag=False,
                                 weight_init_coeff=0.1, mirror=mirror)
-        # self.log_sigma = ARELUConv(self._multiplier * num_c, num_z, k=3, padding=1, masked=True, zero_diag=True)
 
     def forward(self, z, ftr):
         s = self.conv(z, ftr)
@@ -79,11 +78,7 @@ class CellAR(nn.Module):
             logit_pi, mu, log_s, log_a, b = self.param(s)
             new_z, log_det = mix_log_cdf_flow(z, logit_pi, mu, log_s, log_a, b)
         else:
-            # x0.1 helps bring mu and log_sigma closer to 0 initially
             mu = self.mu(s)
-            # log_sigma = 0.0 * self.log_sigma(output)
-            # log_sigma = torch.clamp(log_sigma, min=-5., max=5.0)
-            # new_samples = (z - mu) / torch.exp(log_sigma)
             new_z = (z - mu)
             log_det = torch.zeros_like(new_z)
 

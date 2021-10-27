@@ -11,9 +11,6 @@ from PIL import Image
 import torch
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
-import os
-import utils
-from torch._utils import _accumulate
 from lmdb_datasets import LMDBDataset
 from thirdparty.lsun import LSUN
 
@@ -84,10 +81,6 @@ def get_loaders(args, dataset=None):
         dataset = args.dataset
     return get_loaders_eval(dataset, args)
 
-################################################################################
-# CIFAR-10 / tinyImageNet
-################################################################################
-
 
 def get_loaders_eval(dataset, args):
     """Get train and valid loaders for cifar10/tiny imagenet."""
@@ -141,8 +134,6 @@ def get_loaders_eval(dataset, args):
             num_classes = 1
             train_transform, valid_transform = _data_transforms_lsun(resize)
             train_data = LSUN(root=args.data, classes=['church_outdoor_train'], transform=train_transform)
-#            subset = list(range(0, 50000))
-#            train_data = torch.utils.data.Subset(train_data, subset)
             valid_data = LSUN(root=args.data, classes=['church_outdoor_val'], transform=valid_transform)
         elif dataset.startswith('lsun_tower'):
             resize = int(dataset.split('_')[-1])
@@ -187,19 +178,13 @@ def get_loaders_eval(dataset, args):
 
 def _data_transforms_cifar10(args):
     """Get data transforms for cifar10."""
-    # mean = [0.49139968, 0.48215827, 0.44653124]
-    # std = [0.24703233, 0.24348505, 0.26158768]
-
     train_transform = transforms.Compose([
-        # transforms.RandomCrop(32, padding=4),
         transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        # transforms.Normalize(mean, std),
+        transforms.ToTensor()
     ])
 
     valid_transform = transforms.Compose([
-        transforms.ToTensor(),
-        # transforms.Normalize(mean, std),
+        transforms.ToTensor()
     ])
 
     return train_transform, valid_transform
@@ -209,7 +194,6 @@ def _data_transforms_mnist(args):
     """Get data transforms for cifar10."""
     train_transform = transforms.Compose([
         transforms.Pad(padding=2),
-        # transforms.RandomCrop(32, padding=1),
         transforms.ToTensor(),
         Binarize(),
     ])
