@@ -1,5 +1,15 @@
 # Official PyTorch implementation of "VAEBM: A Symbiosis between Variational Autoencoders and Energy-based Models" [(ICLR 2021 Spotlight Paper)](https://arxiv.org/abs/2010.00654) #
 
+<div align="center">
+  <a href="https://xavierxiao.github.io/" target="_blank">Zhisheng&nbsp;Xiao</a> &emsp; <b>&middot;</b> &emsp;
+  <a href="https://scholar.google.com/citations?hl=en&user=rFd-DiAAAAAJ&view_op=list_works&sortby=pubdate" target="_blank">Karsten&nbsp;Kreis</a> &emsp; <b>&middot;</b> &emsp;
+  <a href="http://jankautz.com/" target="_blank">Jan&nbsp;Kautz</a> &emsp; <b>&middot;</b> &emsp;
+  <a href="http://latentspace.cc/arash_vahdat/" target="_blank">Arash&nbsp;Vahdat</a>
+</div>
+<br>
+<br>
+
+
 VAEBM trains an energy network to refine the data distribution learned by an [NVAE](https://arxiv.org/abs/2007.03898), where the enery network and the VAE jointly define an Energy-based model.
 The NVAE is pretrained before training the energy network, and please refer to [NVAE's implementation](https://github.com/NVlabs/NVAE) for more details about constructing and training NVAE.
 
