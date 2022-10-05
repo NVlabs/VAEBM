@@ -18,7 +18,9 @@ We trained on several datasets, including CIFAR10, CelebA64, LSUN Church 64 and 
 For large datasets, we store the data in LMDB datasets for I/O efficiency. Check [here](https://github.com/NVlabs/NVAE#set-up-file-paths-and-data) for information regarding dataset preparation.
 
 ## Training NVAE ##
-We use the following commands on each dataset for training the NVAE backbone. To train NVAEs, please use its original [codebase](https://github.com/NVlabs/NVAE) with commands given here.
+We use the following commands on each dataset for training the NVAE backbone. To train NVAEs, please use its original [codebase](https://github.com/NVlabs/NVAE) with commands given here. You can find pre-trained NVAE
+checkpoints on CIFAR-10 and CelebA-HQ-256 datasets [here](https://drive.google.com/drive/folders/1qOOkPtVv5iI-5NShVDSTiMRivEwr4gAo?usp=sharing). 
+
 #### CIFAR-10 (8x 16-GB GPUs) ####
 ```
 python train.py --data $DATA_DIR/cifar10 --root $CHECKPOINT_DIR --save $EXPR_ID --dataset cifar10 \
